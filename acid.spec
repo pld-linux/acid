@@ -2,7 +2,7 @@ Summary:	Analysis Console for Incident Databases
 Summary(pl):	Konsola do analizy baz danych o incydentach (ACID)
 Name:		acid
 Version:	0.9.6b13
-Release:	1
+Release:	2
 Group:		Libraries
 License:	GPL/PHP
 Source0:	http://acidlab.sourceforge.net/%{name}-%{version}.tar.gz
@@ -36,13 +36,11 @@ install -d $RPM_BUILD_ROOT/home/httpd/html/%{name}
 
 install acid* index.html $RPM_BUILD_ROOT/home/httpd/html/%{name}
 
-gzip -9nf create* CHANGELOG CREDITS README TODO
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc create* CHANGELOG CREDITS README TODO
 %attr(750,root,root) %dir /home/httpd/html/%{name}
 %attr(640,root,http) /home/httpd/html/%{name}/*

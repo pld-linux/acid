@@ -2,22 +2,22 @@ Summary:	Analysis Console for Incident Databases
 Summary(pl):	Konsola do analizy baz danych o incydentach (ACID)
 Name:		acid
 Version:	0.9.6b23
-Release:	1
-Group:		Libraries
+Release:	2
 License:	GPL/PHP
+Group:		Applications/WWW
 Source0:	http://acidlab.sourceforge.net/%{name}-%{version}.tar.gz
 # Source0-md5:	d8c49614393fa05ac140de349f57e438
 Patch0:		%{name}-config.patch
 URL:		http://acidlab.sourceforge.net/
-Requires:	adodb >= 0.93
+# 1.2 is sufficient, but -config is for location used in 3.50+
+Requires:	adodb >= 3.50
 Requires:	phplot >= 4.4.6
-Requires:	php-common >= 4.0.4
-Requires:	php-gd
-Requires:	apache
+Requires:	php-gd >= 4.0.4
+Requires:	webserver
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_aciddir	/home/services/httpd/html/%{name}
+%define		aciddir		%{_datadir}/%{name}
 
 %description
 ACID is a PHP-based analysis engine to search and process a database
@@ -30,14 +30,16 @@ danych zawieraj±cych informacje o incydentach bezpieczeñstwa
 wygenerowanych przez oprogramowanie takie jak NIDS Snort.
 
 %prep
-%setup  -q -n %{name}
+%setup -q -n %{name}
 %patch0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_aciddir}
+install -d $RPM_BUILD_ROOT{%{aciddir},%{_sysconfdir}}
 
-install acid* index.html $RPM_BUILD_ROOT%{_aciddir}
+install acid* index.html $RPM_BUILD_ROOT%{aciddir}
+mv -f $RPM_BUILD_ROOT%{aciddir}/acid_conf.php $RPM_BUILD_ROOT%{_sysconfdir}
+ln -sf %{_sysconfdir}/acid_conf.php $RPM_BUILD_ROOT%{aciddir}/acid_conf.php
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -45,5 +47,5 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc create* CHANGELOG CREDITS README TODO
-%attr(750,root,root) %dir %{_aciddir}
-%attr(640,root,http) %{_aciddir}/*
+%{aciddir}
+%attr(640,root,http) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/acid_conf.php

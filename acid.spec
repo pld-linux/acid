@@ -6,6 +6,7 @@ Release:	1
 Group:		Libraries
 License:	GPL/PHP
 Source0:	http://acidlab.sourceforge.net/%{name}-%{version}.tar.gz
+# Source0-md5:	d8c49614393fa05ac140de349f57e438
 Patch0:		%{name}-config.patch
 URL:		http://acidlab.sourceforge.net/
 Requires:	adodb >= 0.93

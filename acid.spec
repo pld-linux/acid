@@ -4,13 +4,6 @@ Name:		acid
 Version:	0.9.6b13
 Release:	1
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 License:	GPL and PHP
 Source0:	http://acidlab.sourceforge.net/%{name}-%{version}.tar.gz
 Patch0:		%{name}-config.patch

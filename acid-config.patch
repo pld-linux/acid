@@ -14,7 +14,7 @@
   *  (Note: DO NOT include a trailing backslash after the directory)
   */
 -$ChartLib_path = "";
-+$ChartLib_path = "/usr/share/php/phplot";
++$ChartLib_path = "/usr/share/php/jpgraph";
  
  /* File format of charts ('png', 'jpeg', 'gif') */
  $chart_file_format = "png";

@@ -1,8 +1,8 @@
 Summary:	Analysis Console for Incident Databases
 Summary(pl):	Konsola do analizy baz danych o incydentach (ACID)
 Name:		acid
-Version:	0.9.6b13
-Release:	2
+Version:	0.9.6b21
+Release:	1
 Group:		Libraries
 License:	GPL/PHP
 Source0:	http://acidlab.sourceforge.net/%{name}-%{version}.tar.gz

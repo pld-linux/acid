@@ -4,7 +4,7 @@ Name:		acid
 Version:	0.9.6b13
 Release:	1
 Group:		Libraries
-License:	GPL and PHP
+License:	GPL/PHP
 Source0:	http://acidlab.sourceforge.net/%{name}-%{version}.tar.gz
 Patch0:		%{name}-config.patch
 URL:		http://acidlab.sourceforge.net/

@@ -1,0 +1,30 @@
+diff -urN acid.org/acid_conf.php acid/acid_conf.php
+--- acid.org/acid_conf.php	Sat Sep  1 13:41:47 2001
++++ acid/acid_conf.php	Sat Sep  1 13:43:44 2001
+@@ -3,7 +3,7 @@
+ $ACID_VERSION = "0.9.6b13";
+ 
+ /* Path to the DB abstraction library */
+-$DBlib_path = "";
++$DBlib_path = "/usr/share/php/adodb";
+ 
+ /* The type of underlying alert database
+  * 
+@@ -36,7 +36,7 @@
+ $archive_password = "mypassword";
+ 
+ /* Path to the graphing library */
+-$ChartLib_path = "";
++$ChartLib_path = "/usr/share/php/phplot";
+ 
+ /* File format of charts ('png', 'jpeg', 'gif') */
+ $chart_file_format = "png";
+@@ -119,7 +119,7 @@
+ $whois_cache_lifetime = 40320;
+ 
+ /* Snort spp_portscan log file */
+-$portscan_file = "";
++$portscan_file = "/var/log/snort/portscan.log";
+ 
+ /* Event cache Auto-update
+  *

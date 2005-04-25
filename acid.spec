@@ -2,7 +2,7 @@ Summary:	Analysis Console for Incident Databases
 Summary(pl):	Konsola do analizy baz danych o incydentach (ACID)
 Name:		acid
 Version:	0.9.6b23
-Release:	3
+Release:	4
 License:	GPL/PHP
 Group:		Applications/WWW
 Source0:	http://acidlab.sourceforge.net/%{name}-%{version}.tar.gz
@@ -13,6 +13,7 @@ URL:		http://acidlab.sourceforge.net/
 Requires:	adodb >= 3.50
 Requires:	jpgraph >= 1.8
 Requires:	php-gd >= 4.0.4
+Requires:	php < 5.0.0
 Requires:	webserver
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

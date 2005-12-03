@@ -2,11 +2,12 @@ Summary:	Analysis Console for Incident Databases
 Summary(pl):	Konsola do analizy baz danych o incydentach (ACID)
 Name:		acid
 Version:	0.9.6b23
-Release:	4
+Release:	5
 License:	GPL/PHP
 Group:		Applications/WWW
 Source0:	http://acidlab.sourceforge.net/%{name}-%{version}.tar.gz
 # Source0-md5:	d8c49614393fa05ac140de349f57e438
+Source1:	%{name}.conf
 Patch0:		%{name}-config.patch
 URL:		http://acidlab.sourceforge.net/
 # 1.2 is sufficient, but -config is for location used in 3.50+
@@ -36,17 +37,52 @@ wygenerowanych przez oprogramowanie takie jak NIDS Snort.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{aciddir},%{_sysconfdir}}
+install -d $RPM_BUILD_ROOT{%{aciddir},%{_sysconfdir}} \
+	$RPM_BUILD_ROOT%{_sysconfdir}/httpd
 
 install acid* index.html $RPM_BUILD_ROOT%{aciddir}
 mv -f $RPM_BUILD_ROOT%{aciddir}/acid_conf.php $RPM_BUILD_ROOT%{_sysconfdir}
 ln -sf %{_sysconfdir}/acid_conf.php $RPM_BUILD_ROOT%{aciddir}/acid_conf.php
 
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/%{name}.conf
+%{__sed} -e 's@\$PATH\$@%{_datadir}@g' $RPM_BUILD_ROOT%{_sysconfdir}/httpd/%{name}.conf > \
+	$RPM_BUILD_ROOT%{_sysconfdir}/httpd/%{name}.conf.tmp
+mv $RPM_BUILD_ROOT%{_sysconfdir}/httpd/%{name}.conf.tmp $RPM_BUILD_ROOT%{_sysconfdir}/httpd/%{name}.conf
+
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+if [ -f /etc/httpd/httpd.conf ] && ! grep -q "^Include.*%{name}.conf" /etc/httpd/httpd.conf; then
+        echo "Include /etc/httpd/%{name}.conf" >> /etc/httpd/httpd.conf
+        if [ -f /var/lock/subsys/httpd ]; then
+                /usr/sbin/apachectl restart 1>&2
+        fi
+elif [ -d /etc/httpd/httpd.conf ]; then
+        ln -sf /etc/httpd/%{name}.conf /etc/httpd/httpd.conf/99_%{name}.conf
+        if [ -f /var/lock/subsys/httpd ]; then
+                /usr/sbin/apachectl restart 1>&2
+        fi
+fi
+
+%preun
+if [ "$1" = "0" ]; then
+        umask 027
+        if [ -d /etc/httpd/httpd.conf ]; then
+                rm -f /etc/httpd/httpd.conf/99_%{name}.conf
+        else
+                grep -v "^Include.*%{name}.conf" /etc/httpd/httpd.conf > \
+                        /etc/httpd/httpd.conf.tmp
+                mv -f /etc/httpd/httpd.conf.tmp /etc/httpd/httpd.conf
+        fi
+        if [ -f /var/lock/subsys/httpd ]; then
+                /usr/sbin/apachectl restart 1>&2
+        fi
+fi
 
 %files
 %defattr(644,root,root,755)
 %doc create* CHANGELOG CREDITS README TODO
 %{aciddir}
+%config(noreplace) %verify(not md5 mtime size) /etc/httpd/%{name}.conf
 %attr(640,root,http) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/acid_conf.php

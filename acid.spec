@@ -10,6 +10,7 @@ Source0:	http://acidlab.sourceforge.net/%{name}-%{version}.tar.gz
 Source1:	%{name}.conf
 Patch0:		%{name}-config.patch
 URL:		http://acidlab.sourceforge.net/
+BuildRequires:	rpmbuild(macros) >= 1.264
 # 1.2 is sufficient, but -config is for location used in 3.50+
 Requires:	adodb >= 3.50
 Requires:	jpgraph >= 1.8

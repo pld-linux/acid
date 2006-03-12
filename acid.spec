@@ -2,7 +2,7 @@ Summary:	Analysis Console for Incident Databases
 Summary(pl):	Konsola do analizy baz danych o incydentach (ACID)
 Name:		acid
 Version:	0.9.6b23
-Release:	5
+Release:	6
 License:	GPL/PHP
 Group:		Applications/WWW
 Source0:	http://acidlab.sourceforge.net/%{name}-%{version}.tar.gz
@@ -11,8 +11,7 @@ Source1:	%{name}.conf
 Patch0:		%{name}-config.patch
 URL:		http://acidlab.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.264
-# 1.2 is sufficient, but -config is for location used in 3.50+
-Requires:	adodb >= 3.50
+Requires:	adodb >= 4.67-1.17
 Requires:	jpgraph >= 1.8
 Requires:	php-gd >= 3:4.0.4
 Requires:	php < 4:5.0.0
@@ -67,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %triggerun -- apache < 2.2.0, apache-base
 %webapp_unregister httpd %{_webapp}
+
+%triggerpostun -- %{name} < 0.9.6b23-5.2
+%{__sed} -i -e 's,%{php_pear_dir}/adodb,/usr/share/php/adodb,' %{_sysconfdir}/acid_conf.php
 
 %files
 %defattr(644,root,root,755)

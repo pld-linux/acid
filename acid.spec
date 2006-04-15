@@ -2,7 +2,7 @@ Summary:	Analysis Console for Incident Databases
 Summary(pl):	Konsola do analizy baz danych o incydentach (ACID)
 Name:		acid
 Version:	0.9.6b23
-Release:	7
+Release:	8
 License:	GPL/PHP
 Group:		Applications/WWW
 Source0:	http://acidlab.sourceforge.net/%{name}-%{version}.tar.gz
@@ -11,10 +11,11 @@ Source1:	%{name}.conf
 Patch0:		%{name}-config.patch
 URL:		http://acidlab.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.264
+Requires:	%{name}(DB_Driver) = %{version}-%{release}
 Requires:	adodb >= 4.67-1.17
 Requires:	jpgraph >= 1.8
-Requires:	php-gd >= 3:4.0.4
 Requires:	php < 4:5.0.0
+Requires:	php-gd >= 3:4.0.4
 Requires:	webapps
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -33,6 +34,33 @@ as the NIDS Snort.
 ACID jest bazuj±cym na PHP silnikiem do przeszukiwania i analizy baz
 danych zawieraj±cych informacje o incydentach bezpieczeñstwa
 wygenerowanych przez oprogramowanie takie jak NIDS Snort.
+
+%package db-mysql
+Summary:	ACID DB Driver for MySQL
+Summary(pl):	Sterownik bazy danych MySQL dla ACID
+Group:		Applications/WWW
+Requires:	php-mysql < 4:5.0.0
+Provides:	%{name}(DB_Driver) = %{version}-%{release}
+
+%description db-mysql
+This virtual package provides MySQL database backend for ACID.
+
+%description db-mysql -l pl
+Ten wirtualny pakiet dostarcza backend bazy danych MySQL dla ACID.
+
+%package db-pgsql
+Summary:	ACID DB Driver for PostgreSQL
+Summary(pl):	Sterownik bazy danych PostgreSQL dla ACID
+Group:		Applications/WWW
+Requires:	php-pgsql < 4:5.0.0
+Provides:	%{name}(DB_Driver) = %{version}-%{release}
+
+%description db-pgsql
+This virtual package provides PostgreSQL database backend for ACID.
+
+%description db-pgsql -l pl
+Ten wirtualny pakiet dostarcza backend bazy danych PostgreSQL dla
+ACID.
 
 %prep
 %setup -q -n %{name}
@@ -78,3 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apache.conf
 %attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/acid_conf.php
 %{_appdir}
+
+%files db-mysql
+%defattr(644,root,root,755)
+
+%files db-pgsql
+%defattr(644,root,root,755)

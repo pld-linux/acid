@@ -5,7 +5,7 @@
   *        $foo = "c:\tmp\"   [WRONG]
   */
 -$DBlib_path = "";
-+$DBlib_path = "/usr/share/pear/adodb";
++$DBlib_path = "/usr/share/php/adodb";
  
  /* The type of underlying alert database
   * 

@@ -2,7 +2,7 @@ Summary:	Analysis Console for Incident Databases
 Summary(pl):	Konsola do analizy baz danych o incydentach (ACID)
 Name:		acid
 Version:	0.9.6b23
-Release:	9
+Release:	10
 License:	GPL/PHP
 Group:		Applications/WWW
 Source0:	http://acidlab.sourceforge.net/%{name}-%{version}.tar.gz
@@ -14,9 +14,9 @@ BuildRequires:	rpmbuild(macros) >= 1.264
 Requires:	%{name}(DB_Driver) = %{version}-%{release}
 Requires:	adodb >= 4.67-1.17
 Requires:	jpgraph >= 1.8
-Requires:	php < 4:5.0.0
-Requires:	php-gd >= 3:4.0.4
+Requires:	php(gd)
 Requires:	webapps
+Requires:	webserver(php) < 5.0.0
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -39,7 +39,7 @@ wygenerowanych przez oprogramowanie takie jak NIDS Snort.
 Summary:	ACID DB Driver for MySQL
 Summary(pl):	Sterownik bazy danych MySQL dla ACID
 Group:		Applications/WWW
-Requires:	php-mysql < 4:5.0.0
+Requires:	php(mysql)
 Provides:	%{name}(DB_Driver) = %{version}-%{release}
 
 %description db-mysql
@@ -52,7 +52,7 @@ Ten wirtualny pakiet dostarcza backend bazy danych MySQL dla ACID.
 Summary:	ACID DB Driver for PostgreSQL
 Summary(pl):	Sterownik bazy danych PostgreSQL dla ACID
 Group:		Applications/WWW
-Requires:	php-pgsql < 4:5.0.0
+Requires:	php(pgsql)
 Provides:	%{name}(DB_Driver) = %{version}-%{release}
 
 %description db-pgsql

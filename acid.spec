@@ -1,5 +1,5 @@
 Summary:	Analysis Console for Incident Databases
-Summary(pl.UTF-8):   Konsola do analizy baz danych o incydentach (ACID)
+Summary(pl.UTF-8):	Konsola do analizy baz danych o incydentach (ACID)
 Name:		acid
 Version:	0.9.6b23
 Release:	10
@@ -37,7 +37,7 @@ wygenerowanych przez oprogramowanie takie jak NIDS Snort.
 
 %package db-mysql
 Summary:	ACID DB Driver for MySQL
-Summary(pl.UTF-8):   Sterownik bazy danych MySQL dla ACID
+Summary(pl.UTF-8):	Sterownik bazy danych MySQL dla ACID
 Group:		Applications/WWW
 Requires:	php(mysql)
 Provides:	%{name}(DB_Driver) = %{version}-%{release}
@@ -50,7 +50,7 @@ Ten wirtualny pakiet dostarcza backend bazy danych MySQL dla ACID.
 
 %package db-pgsql
 Summary:	ACID DB Driver for PostgreSQL
-Summary(pl.UTF-8):   Sterownik bazy danych PostgreSQL dla ACID
+Summary(pl.UTF-8):	Sterownik bazy danych PostgreSQL dla ACID
 Group:		Applications/WWW
 Requires:	php(pgsql)
 Provides:	%{name}(DB_Driver) = %{version}-%{release}

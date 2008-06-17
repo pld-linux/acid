@@ -1,3 +1,5 @@
+# TODO
+# - proper webapps integration: make config NOT accessible from web
 Summary:	Analysis Console for Incident Databases
 Summary(pl.UTF-8):	Konsola do analizy baz danych o incydentach (ACID)
 Name:		acid
@@ -10,7 +12,7 @@ Source0:	http://acidlab.sourceforge.net/%{name}-%{version}.tar.gz
 Source1:	%{name}.conf
 Patch0:		%{name}-config.patch
 URL:		http://acidlab.sourceforge.net/
-BuildRequires:	rpmbuild(macros) >= 1.264
+BuildRequires:	rpmbuild(macros) >= 1.461
 Requires:	%{name}(DB_Driver) = %{version}-%{release}
 Requires:	adodb >= 4.67-1.17
 Requires:	jpgraph >= 1.8
@@ -96,7 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 %webapp_unregister httpd %{_webapp}
 
 %triggerpostun -- %{name} < 0.9.6b23-5.2
-%{__sed} -i -e 's,%{php_pear_dir}/adodb,/usr/share/php/adodb,' %{_sysconfdir}/acid_conf.php
+%{__sed} -i -e 's,%{php_pear_dir}/adodb,%{php_data_dir}/adodb,' %{_sysconfdir}/acid_conf.php
 
 %files
 %defattr(644,root,root,755)
